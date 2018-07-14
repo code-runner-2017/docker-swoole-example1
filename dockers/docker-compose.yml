@@ -1,0 +1,18 @@
+version: '2'
+ 
+services:
+  app:
+    build:
+      context:  ./lumen-swoole
+      dockerfile: Dockerfile
+    expose:
+      - "5000"
+ 
+  proxy:
+    build:
+      context:  ./nginx-load-balancer
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    links:
+      - app
